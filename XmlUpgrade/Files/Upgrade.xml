@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XmlUpgrade>
+  <Patch Version="1">
+    <!-- Убирает диспетчеры входящих соединений для Home credit Cash Loan и Home Credit по картам. -->
+    <RemoveElements XPath="Settings/Services/HttpDispatcher[@Type='HomeCreditCashLoan' or @Type='HomeCreditCreditCard']"/>
+    
+    <!-- Убирает атрибуты Timeout и Protocol у диспетчера входящих соединений электронного каталога. -->
+    <RemoveAttributes ElementPath="Settings/Services/HttpDispatcher[@Type='DigitalCatalogue']">
+      <Attribute>Timeout</Attribute>
+      <Attribute>Protocol</Attribute>
+    </RemoveAttributes>
+
+    <!-- Добавляет новый диспетчер для обработки входящих соединений. -->
+    <AddElement ParentPath="Settings/Services">
+      <![CDATA[<HttpDispatcher Type="Vasya" Protocol="https" ListenAddress="9080/someshit" Timeout="20"/>]]>
+    </AddElement>
+
+    <AddAttributes ElementPath="Settings/Services/HttpDispatcher[@Type='Vasya']">
+      <Attribute Name="Suffer" Value="Bitch"/>
+    </AddAttributes>
+
+    <ChangeAttributes ElementPath="Settings/Services/HttpDispatcher[@Type='Vasya']">
+      <Attribute Name="Suffer" Value="Vasya"/>
+    </ChangeAttributes>
+  </Patch>
+</XmlUpgrade>
